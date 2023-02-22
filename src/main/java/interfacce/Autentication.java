@@ -71,6 +71,7 @@ public class Autentication {
 		aut.setForeground(Color.WHITE);
 		
 		login = new JTextField();
+		login.setName("login");
 		JLabel log = new JLabel("Login");
 		log.setFont(new Font("Arial", Font.BOLD, 12));
 		log.setForeground(Color.WHITE);
@@ -140,9 +141,23 @@ public class Autentication {
 	}
 	private JButton invia, reset;
 	private JMenuBar jmb;
+
+	public JPanel getPannello() {
+		return pannello;
+	}
+
+	public Container getCont() {
+		return cont;
+	}
+
 	private JPanel pannello;
 	private JFrame jf;
 	private JLabel aut;
+
+	public Connection getCon() {
+		return con;
+	}
+
 	private Connection con;
 	private Container cont;
 	private JTextField login;
