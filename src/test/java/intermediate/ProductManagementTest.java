@@ -6,6 +6,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import java.util.function.Supplier;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ProductManagementTest {
@@ -26,10 +28,25 @@ class ProductManagementTest {
 
     @Test
     void getProduct() {
-        product.setID("1");
-        pm.setId("1");
-        Product product1 = pm.getProduct();
-        assertEquals(product,product1);
+        Product expected = new Product();
+        expected.setID("10");
+        expected.setCategoria("Scarpe");
+        pm.setId("10");
+        Product actual = pm.getProduct();
+
+        assertNotNull(actual);
+        assertEquals(actual.getCategoria(), expected.getCategoria());
+    }
+
+    @Test
+    void getProductInputError() {
+        Product expected = new Product();
+        expected.setID("ok");
+
+        pm.setId("ok");
+        Product actual = pm.getProduct();
+
+        assertNull(actual);
     }
 
     @Test
@@ -44,7 +61,21 @@ class ProductManagementTest {
     @Test
     void insertProduct() {
         Product product = new Product();
-        product.setID("9");
+        product.setID("10");
+        product.setMarca("Adidadas");
+        product.setModello("M");
+        product.setCategoria("Scarpe");
+        product.setPrz("200");
+        product.setQta("2");
+
+        Boolean result = pm.insertProduct(product);
+        assertTrue(result);
+
+    }
+    @Test
+    void insertProductWithIDError() {
+        Product product = new Product();
+        product.setID("10");
         product.setMarca("Adidadas");
         product.setModello("M");
         product.setCategoria("Scarpe");
@@ -58,16 +89,32 @@ class ProductManagementTest {
 
     @Test
     void updateProductPerQtaAndPrz() {
-        product.setID("1");
+        product.setID("10");
         product.setPrz("200");
         product.setQta("2");
         Boolean rs = pm.updateProduct(product);
-        assertTrue(rs,
-                ()->"");
+        assertTrue(rs);
+    }
+
+    @Test
+    void updateProductPerQtaAndPrzWithIDError() {
+        product.setID("9");
+        product.setPrz("200");
+        product.setQta("2");
+        Boolean rs = pm.updateProduct(product);
+        assertTrue(rs);
     }
     @Test
     void updateProductPerQta() {
-        product.setID("1");
+        product.setID("10");
+        product.setQta("2");
+        Boolean rs = pm.updateProduct(product);
+        assertTrue(rs);
+    }
+
+    @Test
+    void updateProductPerQtaWithIDError() {
+        product.setID("9");
         product.setQta("2");
         Boolean rs = pm.updateProduct(product);
         assertTrue(rs);
@@ -76,11 +123,17 @@ class ProductManagementTest {
     @Test
     void removeProduct() {
 
+        pm.setId("10");
+        boolean rs = pm.removeProduct();
+        assertTrue(rs);
+    }
+    @Test
+    void removeProductWithIDError() {
+
         pm.setId("9");
         boolean rs = pm.removeProduct();
         assertTrue(rs);
     }
-
     @Test
     @Disabled
     void setFlag() {

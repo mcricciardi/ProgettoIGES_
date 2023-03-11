@@ -35,16 +35,20 @@ class ExitsManagementTest {
     }
 
     @Test
-    void testImportData(){
+    void addExitWithAmountError(){
+        expense.setAmount("ok");
+        expense.setDay("01");
+        expense.setMonth("11");
+        expense.setYear("2022");
+        expense.setDesc("Esempio");
         expense.setCount("22");
-        expense.setAmount("djdjdj");
 
         boolean rs = em.addExit(expense);
         assertTrue(rs);
     }
 
     @Test
-    void testInsertBadDate(){
+    void addExitWithDateError(){
         expense.setMonth("32");
         expense.setDay("32");
         expense.setYear("32");
@@ -54,9 +58,31 @@ class ExitsManagementTest {
         boolean rs = em.addExit(expense);
         assertTrue(rs);
     }
+
+    @Test
+    void addExitWithCountError() {
+        expense.setAmount("200");
+        expense.setDay("01");
+        expense.setMonth("11");
+        expense.setYear("2022");
+        expense.setDesc("Esempio");
+        expense.setCount("ok");
+
+        boolean rs = em.addExit(expense);
+        assertTrue(rs);
+    }
     @Test
     void getExit() {
-        String[] period = {"23", "04", "2008", "23", "04", "2008"};
+        String[] period = {"14", "02", "2008", "14", "02", "2008"};
+
+        ArrayList arrayList = em.getExit(period);
+        System.out.println(
+                Arrays.deepToString(arrayList.toArray())
+        );
+    }
+    @Test
+    void getExitWithPeriodError() {
+        String[] period = {"32", "32", "2008", "32", "32", "2008"};
 
         ArrayList arrayList = em.getExit(period);
         System.out.println(
