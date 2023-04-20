@@ -1,4 +1,4 @@
-package com.m2fas_webapp;
+package com.m2fas_webapp.test;
 
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
@@ -28,5 +28,8 @@ public class LoginServlet {
 
     @FindBy(xpath = "//button[@class='btn']")
     public WebElement buttonLogin = $x("//button[@class='btn']");
+
+    @FindBy(css = "div[class='error']")
+    public SelenideElement divError = $("div[class='error']");
 
 }
