@@ -1,5 +1,6 @@
 package com.m2fas_webapp.test;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,6 +12,8 @@ import static com.codeborne.selenide.Selenide.open;
 
 public class LoginServletTest {
     LoginServlet loginServlet = new LoginServlet();
+
+
 
 
 
@@ -51,5 +54,14 @@ public class LoginServletTest {
         loginServlet.buttonLogin.click();
         loginServlet.divError.shouldHave(text("Dati non validi"));
 
+    }
+    @Test
+    public void correctPageAfterLogin(){
+        loginServlet.linkLogin.click();
+
+        loginServlet.inputEmail.sendKeys("elleone@yahoo.com");
+        loginServlet.inputPassword.sendKeys("0");
+        loginServlet.buttonLogin.click();
+        loginServlet.h2ListaProdotti.shouldHave(text("Lista prodotti"));
     }
 }

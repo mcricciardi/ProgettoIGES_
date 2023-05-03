@@ -32,4 +32,10 @@ public class LoginServlet {
     @FindBy(css = "div[class='error']")
     public SelenideElement divError = $("div[class='error']");
 
+    @FindBy(xpath = "//*[text() = 'Lista prodotti']")
+    public SelenideElement h2ListaProdotti = $("/*[text() = 'Lista prodotti']");
+
+
+
+    
 }
